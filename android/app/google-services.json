@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "198587236706",
+    "firebase_url": "https://water-harvester.firebaseio.com",
+    "project_id": "water-harvester",
+    "storage_bucket": "water-harvester.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198587236706:android:e44074ec39e3e440feac3b",
+        "android_client_info": {
+          "package_name": "com.example.water_harvester"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198587236706-957fnji3hlctsppejv9ujh4qphqn7p52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.water_harvester",
+            "certificate_hash": "ff8dd9f37e0666acdd6275edd061351576d1e883"
+          }
+        },
+        {
+          "client_id": "198587236706-l7e5gq0ta055mgovhas6jlj01s0c7t3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbh3qCI1x7a5N3bcOBQRGIXTcHR82fYiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198587236706-l7e5gq0ta055mgovhas6jlj01s0c7t3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
