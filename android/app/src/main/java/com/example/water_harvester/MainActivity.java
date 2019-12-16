@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -37,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         // stop testing stuff here
 
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         System.out.println("!!MYLOG!! " + database);
 
-        DatabaseReference dbRef = database.getReference();
+        final DatabaseReference dbRef = database.getReference();
 
         System.out.println("!!MYLOG!! " + dbRef);
 
@@ -55,6 +57,24 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w("Value", "Failed to read value with error: ", databaseError.toException());
             }
+        });
+
+        Switch onOffSwitch = findViewById(R.id.switch1);
+
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+                    Log.v("Switch State=", ""+isChecked);
+                    dbRef.child("onOff").setValue(isChecked);
+                } else if(!isChecked){
+                    Log.v("Switch State=", ""+isChecked);
+                    dbRef.child("onOff").setValue(isChecked);
+                }
+            }
+
         });
 
         DatabaseReference ambientTempRef = dbRef.child("ambientTemp");

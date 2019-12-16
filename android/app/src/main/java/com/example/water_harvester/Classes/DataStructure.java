@@ -6,6 +6,7 @@ public class DataStructure {
     private int insideTemp = 0;
     private int insideHum = 0;
     private int fanRPM = 0;
+    private boolean onOff = true;
 
     public void setAmbientHum(int value){
         ambientHum = value;
@@ -46,4 +47,6 @@ public class DataStructure {
     public int getFanRPM(){
         return fanRPM;
     }
+
+    public boolean getOnOff() { return onOff; }
 }
