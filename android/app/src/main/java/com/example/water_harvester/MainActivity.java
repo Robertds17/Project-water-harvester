@@ -23,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataStructure dataStructure = new DataStructure();
+        // test stuff here
+
+
+        // stop testing stuff here
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         System.out.println("!!MYLOG!! " + database);
@@ -31,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference dbRef = database.getReference();
 
         System.out.println("!!MYLOG!! " + dbRef);
-
-        dbRef.setValue(dataStructure);
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
