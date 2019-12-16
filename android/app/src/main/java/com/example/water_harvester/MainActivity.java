@@ -26,6 +26,9 @@ import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
+import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientHumPieChartData;
+import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientTempPieChartData;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -85,14 +88,7 @@ public class MainActivity extends AppCompatActivity {
                  int value = dataSnapshot.getValue(int.class);
                  Log.d("ambientTemp","ambientTemp: " + value);
                  PieChartView pieChartView = findViewById(R.id.ambientTempView);
-                 Log.d("piechartView", "piechartview: " + pieChartView.getChartData());
-                 List<SliceValue> pieData = new ArrayList<>();
-                 pieData.add(new SliceValue(value * 2).setColor(Color.RED).setLabel("" + value + "°C"));
-                 pieData.add(new SliceValue(100-value).setLabel(""));
-                 PieChartData pieChartData = new PieChartData(pieData);
-                 pieChartData.setHasLabels(true);
-                 pieChartData.setHasCenterCircle(true).setCenterText1("Ambient").setCenterText1FontSize(10).setCenterText2("temperature").setCenterText2FontSize(10);
-                 pieChartView.setPieChartData(pieChartData);
+                 pieChartView.setPieChartData(BuildAmbientTempPieChartData(value));
              }
 
              @Override
@@ -153,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("ambientHumRef","ambientHumRef: " + value);
+                PieChartView pieChartView = findViewById(R.id.ambientHumView);
+                pieChartView.setPieChartData(BuildAmbientHumPieChartData(value));
             }
 
             @Override
