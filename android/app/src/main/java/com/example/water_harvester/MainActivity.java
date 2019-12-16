@@ -110,5 +110,20 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("insideTempRef", "Failed to read value with error: ", databaseError.toException());
             }
         });
+
+        DatabaseReference ambientHumRef = dbRef.child("ambientHum");
+
+        ambientHumRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int value = dataSnapshot.getValue(int.class);
+                Log.d("ambientHumRef","ambientHumRef: " + value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("ambientHumRef", "Failed to read value with error: ", databaseError.toException());
+            }
+        });
     }
 }
