@@ -3,6 +3,7 @@ package com.example.water_harvester;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -15,6 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.example.water_harvester.Classes.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.PieChartView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  int value = dataSnapshot.getValue(int.class);
                  Log.d("ambientTemp","ambientTemp: " + value);
+                 PieChartView pieChartView = findViewById(R.id.ambientTempView);
+                 Log.d("piechartView", "piechartview: " + pieChartView.getChartData());
+                 List<SliceValue> pieData = new ArrayList<>();
+                 pieData.add(new SliceValue(value * 2).setColor(Color.RED).setLabel("" + value));
+                 pieData.add(new SliceValue(100-value).setLabel(""));
+                 PieChartData pieChartData = new PieChartData(pieData);
+                 pieChartData.setHasLabels(true);
+                 pieChartData.setHasCenterCircle(true);
+
+                 pieChartView.setPieChartData(pieChartData);
              }
 
              @Override
