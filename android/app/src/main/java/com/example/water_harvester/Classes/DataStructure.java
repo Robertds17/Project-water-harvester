@@ -1,10 +1,19 @@
 package com.example.water_harvester.Classes;
 
 public class DataStructure {
+    private int ambientHum = 0;
     private int ambientTemp = 0;
     private int insideTemp = 0;
     private int insideHum = 0;
     private int fanRPM = 0;
+
+    public void setAmbientHum(int value){
+        ambientHum = value;
+    }
+
+    public int getAmbientHum(){
+        return ambientHum;
+    }
 
     public void setAmbientTemp(int value){
         ambientTemp = value;
