@@ -12,7 +12,7 @@ import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class GraphBuilder {
-    public static PieChartData BuildPieChartData(int value, String label, String centerText1, String centerText2, int fontSize, int color){
+    private static PieChartData BuildPieChartData(int value, String label, String centerText1, String centerText2, int fontSize, int color){
         List<SliceValue> pieData = new ArrayList<>();
             pieData.add(new SliceValue(value).setColor(color).setLabel(label));
             pieData.add(new SliceValue(100-value).setLabel(""));
@@ -31,6 +31,14 @@ public class GraphBuilder {
     }
 
     public static PieChartData BuildAmbientHumPieChartData(int value){
-        return BuildPieChartData(value, value + "%", "Ambient", "humidity", 10, Color.BLUE);
+        return BuildPieChartData(value, value + "%", "Ambient", "humidity", 10, R.color.lightBlue);
+    }
+
+    public static PieChartData BuildInsideTempPieChartData(int value){
+        return BuildPieChartData(value * 2, value + "°C", "Inside", "temperature", 10, Color.RED);
+    }
+
+    public static PieChartData BuildInsideHumPieChartData(int value){
+        return BuildPieChartData(value, value + "%", "Inside", "humidity", 10, R.color.lightBlue);
     }
 }

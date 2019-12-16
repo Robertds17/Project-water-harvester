@@ -28,6 +28,8 @@ import lecho.lib.hellocharts.view.PieChartView;
 
 import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientHumPieChartData;
 import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientTempPieChartData;
+import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideHumPieChartData;
+import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideTempPieChartData;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -119,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("insideHUMRef","insideHUMRef: " + value);
+                PieChartView pieChartView = findViewById(R.id.InsideHumView);
+                pieChartView.setPieChartData(BuildInsideHumPieChartData(value));
             }
 
             @Override
@@ -134,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("insideTempRef","insideTempRef: " + value);
+                PieChartView pieChartView = findViewById(R.id.InsideTempView);
+                pieChartView.setPieChartData(BuildInsideTempPieChartData(value));
             }
 
             @Override
