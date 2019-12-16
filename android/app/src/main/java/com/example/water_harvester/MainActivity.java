@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataStructure value = dataSnapshot.getValue(DataStructure.class);
                 Log.d("Value", "Value: " + value);
-                TextView textField = findViewById(R.id.text1);
-                textField.setText(String.valueOf(value.getAmbientTemp()));
             }
 
             @Override
@@ -69,12 +67,11 @@ public class MainActivity extends AppCompatActivity {
                  PieChartView pieChartView = findViewById(R.id.ambientTempView);
                  Log.d("piechartView", "piechartview: " + pieChartView.getChartData());
                  List<SliceValue> pieData = new ArrayList<>();
-                 pieData.add(new SliceValue(value * 2).setColor(Color.RED).setLabel("" + value));
+                 pieData.add(new SliceValue(value * 2).setColor(Color.RED).setLabel("" + value + "°C"));
                  pieData.add(new SliceValue(100-value).setLabel(""));
                  PieChartData pieChartData = new PieChartData(pieData);
                  pieChartData.setHasLabels(true);
-                 pieChartData.setHasCenterCircle(true);
-
+                 pieChartData.setHasCenterCircle(true).setCenterText1("Ambient").setCenterText1FontSize(10).setCenterText2("temperature").setCenterText2FontSize(10);
                  pieChartView.setPieChartData(pieChartData);
              }
 
