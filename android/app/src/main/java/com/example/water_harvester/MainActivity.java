@@ -2,6 +2,7 @@ package com.example.water_harvester;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import lecho.lib.hellocharts.view.PieChartView;
 
 import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientHumPieChartData;
 import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientTempPieChartData;
+import static com.example.water_harvester.Classes.GraphBuilder.BuildFanRPMPieChartData;
 import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideHumPieChartData;
 import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideTempPieChartData;
 
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                  int value = dataSnapshot.getValue(int.class);
                  Log.d("ambientTemp","ambientTemp: " + value);
                  PieChartView pieChartView = findViewById(R.id.ambientTempView);
-                 pieChartView.setPieChartData(BuildAmbientTempPieChartData(value));
+                 pieChartView.setPieChartData(BuildAmbientTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
              }
 
              @Override
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("fanRPMRef","fanRPMRef: " + value);
+                PieChartView pieChartView = findViewById(R.id.fanRPMView);
+                pieChartView.setPieChartData(BuildFanRPMPieChartData(value, getColorFromResource(R.color.lightYellow)));
             }
 
             @Override
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("insideHUMRef","insideHUMRef: " + value);
                 PieChartView pieChartView = findViewById(R.id.InsideHumView);
-                pieChartView.setPieChartData(BuildInsideHumPieChartData(value));
+                pieChartView.setPieChartData(BuildInsideHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
 
             @Override
@@ -139,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("insideTempRef","insideTempRef: " + value);
                 PieChartView pieChartView = findViewById(R.id.InsideTempView);
-                pieChartView.setPieChartData(BuildInsideTempPieChartData(value));
+                pieChartView.setPieChartData(BuildInsideTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
             }
 
             @Override
@@ -156,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 int value = dataSnapshot.getValue(int.class);
                 Log.d("ambientHumRef","ambientHumRef: " + value);
                 PieChartView pieChartView = findViewById(R.id.ambientHumView);
-                pieChartView.setPieChartData(BuildAmbientHumPieChartData(value));
+                pieChartView.setPieChartData(BuildAmbientHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
 
             @Override
@@ -164,5 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("ambientHumRef", "Failed to read value with error: ", databaseError.toException());
             }
         });
+    }
+
+    private int getColorFromResource(int id){
+        return ResourcesCompat.getColor(getResources(), id, null);
     }
 }
