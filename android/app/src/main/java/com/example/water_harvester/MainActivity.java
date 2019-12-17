@@ -7,7 +7,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -80,6 +84,40 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+        });
+
+
+        Button fanChange = findViewById(R.id.fanChange);
+
+        fanChange.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText fanRPM = findViewById(R.id.editRPM);
+                int fanRpmConvert = Integer.valueOf(fanRPM.getText().toString());
+                Log.v("changeRPM", fanRPM.getText().toString());
+                dbRef.child("fanRPM").setValue(fanRpmConvert);
+            }
+        });
+
+
+        SeekBar seekbar = findViewById(R.id.seekBar);
+        final TextView seekbarRPM = findViewById(R.id.rpmspeed);
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                seekbarRPM.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int seekbarRpmConvert = seekBar.getProgress();
+                Log.v("RPM slider:", String.valueOf(seekbarRpmConvert));
+                dbRef.child("fanRPM").setValue(seekbarRpmConvert);
+            }
         });
 
         DatabaseReference ambientTempRef = dbRef.child("ambientTemp");
