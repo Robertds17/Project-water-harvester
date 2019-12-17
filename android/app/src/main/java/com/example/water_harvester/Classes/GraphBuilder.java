@@ -1,6 +1,10 @@
 package com.example.water_harvester.Classes;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.water_harvester.R;
 
@@ -26,19 +30,23 @@ public class GraphBuilder {
                 .setCenterText2FontSize(fontSize);
     }
 
-    public static PieChartData BuildAmbientTempPieChartData(int value){
-        return BuildPieChartData(value * 2, value + "°C", "Ambient", "temperature", 10, Color.RED);
+    public static PieChartData BuildAmbientTempPieChartData(int value, int color){
+        return BuildPieChartData(value * 2, value + "°C", "Ambient", "temperature", 10, color);
     }
 
-    public static PieChartData BuildAmbientHumPieChartData(int value){
-        return BuildPieChartData(value, value + "%", "Ambient", "humidity", 10, R.color.lightBlue);
+    public static PieChartData BuildAmbientHumPieChartData(int value, int color){
+        return BuildPieChartData(value, value + "%", "Ambient", "humidity", 10, color);
     }
 
-    public static PieChartData BuildInsideTempPieChartData(int value){
-        return BuildPieChartData(value * 2, value + "°C", "Inside", "temperature", 10, Color.RED);
+    public static PieChartData BuildInsideTempPieChartData(int value, int color){
+        return BuildPieChartData(value * 2, value + "°C", "Inside", "temperature", 10, color);
     }
 
-    public static PieChartData BuildInsideHumPieChartData(int value){
-        return BuildPieChartData(value, value + "%", "Inside", "humidity", 10, R.color.lightBlue);
+    public static PieChartData BuildInsideHumPieChartData(int value, int color){
+        return BuildPieChartData(value, value + "%", "Inside", "humidity", 10, color);
+    }
+
+    public static PieChartData BuildFanRPMPieChartData(int value, int color){
+        return BuildPieChartData(value, value * 25 + "rpm", "Fan", "RPM", 10, color);
     }
 }
