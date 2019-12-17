@@ -47,6 +47,6 @@ public class GraphBuilder {
     }
 
     public static PieChartData BuildFanRPMPieChartData(int value, int color){
-        return BuildPieChartData(value / 25, value + "RPM", "Fan", "RPM", 10, color);
+        return BuildPieChartData(value, value * 25 + "rpm", "Fan", "RPM", 10, color);
     }
 }
