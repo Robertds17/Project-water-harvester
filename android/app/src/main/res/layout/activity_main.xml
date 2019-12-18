@@ -176,7 +176,6 @@
                     />
 
 
-
                 <EditText
                     android:id="@+id/editRPM"
                     android:layout_width="wrap_content"
@@ -184,8 +183,8 @@
                     android:layout_marginTop="8dp"
                     android:width="120px"
                     android:ems="10"
-                    android:inputType="number"
-                    />
+                    android:hint="0"
+                    android:inputType="number" />
 
                 <Button
                     android:id="@+id/fanChange"
