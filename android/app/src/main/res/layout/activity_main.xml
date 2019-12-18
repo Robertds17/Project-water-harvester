@@ -118,7 +118,9 @@
                 android:layout_width="293dp"
                 android:layout_height="23dp"
                 android:layout_marginBottom="24dp"
-                />
+                android:secondaryProgressTint="#03A9F4"
+                android:thumbTint="#2196F3"
+                app:tickMarkTint="#03A9F4" />
 
         </LinearLayout>
 
