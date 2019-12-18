@@ -97,8 +97,13 @@ public class MainActivity extends AppCompatActivity {
 
         fanChangeView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int fanRpmConvert = Integer.valueOf(editFanRPMView.getText().toString());
-                Log.v("changeRPM", editFanRPMView.getText().toString());
+                int fanRpmConvert;
+                try{
+                    fanRpmConvert =  Integer.parseInt(editFanRPMView.getText().toString());
+                } catch (NumberFormatException ex){
+                    fanRpmConvert = 0;
+                }
+                Log.v("changeRPM", "" + fanRpmConvert);
                 fanRPMRef.setValue(fanRpmConvert);
             }
         });
