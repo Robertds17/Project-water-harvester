@@ -1,18 +1,18 @@
 package com.example.water_harvester.Classes;
 
 public class DataStructure {
-    private int ambientHum = 0;
-    private int ambientTemp = 0;
-    private int insideTemp = 0;
-    private int insideHum = 0;
-    private int fanRPM = 0;
+    private long ambientHum = 0;
+    private long ambientTemp = 0;
+    private long insideTemp = 0;
+    private long insideHum = 0;
+    private long fanRPM = 0;
     private boolean onOff = true;
 
     public void setAmbientHum(int value){
         ambientHum = value;
     }
 
-    public int getAmbientHum(){
+    public long getAmbientHum(){
         return ambientHum;
     }
 
@@ -20,7 +20,7 @@ public class DataStructure {
         ambientTemp = value;
     }
 
-    public int getAmbientTemp(){
+    public long getAmbientTemp(){
         return ambientTemp;
     }
 
@@ -28,7 +28,7 @@ public class DataStructure {
         insideTemp = value;
     }
 
-    public int getInsideTemp(){
+    public long getInsideTemp(){
         return insideTemp;
     }
 
@@ -36,7 +36,7 @@ public class DataStructure {
         insideHum = value;
     }
 
-    public int getInsideHum(){
+    public long getInsideHum(){
         return insideHum;
     }
 
@@ -44,7 +44,7 @@ public class DataStructure {
         fanRPM = value;
     }
 
-    public int getFanRPM(){
+    public long getFanRPM(){
         return fanRPM;
     }
 

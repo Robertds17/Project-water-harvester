@@ -51,11 +51,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        System.out.println("!!MYLOG!! " + database);
 
         final DatabaseReference dbRef = database.getReference();
+        final DatabaseReference ambientTempRef = dbRef.child("ambientTemp");
+        final DatabaseReference fanRPMRef = dbRef.child("fanRPM");
+        final DatabaseReference insideHUMRef = dbRef.child("insideHum");
+        final DatabaseReference insideTempRef = dbRef.child("insideTemp");
+        final DatabaseReference ambientHumRef = dbRef.child("ambientHum");
+        final DatabaseReference onOffRef = dbRef.child("onOff");
 
-        System.out.println("!!MYLOG!! " + dbRef);
+        final TextView seekbarRPMView = findViewById(R.id.rpmspeed);
+        final Switch onOffSwitchView = findViewById(R.id.switch1);
+        final Button fanChangeView = findViewById(R.id.fanChange);
+        final SeekBar seekbarView = findViewById(R.id.seekBar);
+        final EditText editFanRPMView = findViewById(R.id.editRPM);
+        final PieChartView ambientTempView = findViewById(R.id.ambientTempView);
+        final PieChartView fanRPMView = findViewById(R.id.fanRPMView);
+        final PieChartView insideHUMView = findViewById(R.id.InsideHumView);
+        final PieChartView insideTempView = findViewById(R.id.InsideTempView);
+        final PieChartView ambientHumView = findViewById(R.id.ambientHumView);
+
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,43 +85,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Switch onOffSwitch = findViewById(R.id.switch1);
 
-        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        onOffSwitchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if(isChecked){
-                    Log.v("Switch State=", ""+isChecked);
-                    dbRef.child("onOff").setValue(isChecked);
-                } else if(!isChecked){
-                    Log.v("Switch State=", ""+isChecked);
-                    dbRef.child("onOff").setValue(isChecked);
-                }
+                Log.v("Switch State", "" + isChecked);
+                onOffRef.setValue(isChecked);
             }
-
         });
 
-
-        Button fanChange = findViewById(R.id.fanChange);
-
-        fanChange.setOnClickListener(new View.OnClickListener() {
+        fanChangeView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText fanRPM = findViewById(R.id.editRPM);
-                int fanRpmConvert = Integer.valueOf(fanRPM.getText().toString());
-                Log.v("changeRPM", fanRPM.getText().toString());
-                dbRef.child("fanRPM").setValue(fanRpmConvert);
+                int fanRpmConvert = Integer.valueOf(editFanRPMView.getText().toString());
+                Log.v("changeRPM", editFanRPMView.getText().toString());
+                fanRPMRef.setValue(fanRpmConvert);
             }
         });
 
 
-        SeekBar seekbar = findViewById(R.id.seekBar);
-        final TextView seekbarRPM = findViewById(R.id.rpmspeed);
-        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekbarView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                seekbarRPM.setText(String.valueOf(progress));
+                seekbarRPMView.setText(String.valueOf(progress));
             }
 
             @Override
@@ -118,19 +119,16 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int seekbarRpmConvert = seekBar.getProgress();
                 Log.v("RPM slider:", String.valueOf(seekbarRpmConvert));
-                dbRef.child("fanRPM").setValue(seekbarRpmConvert);
+                fanRPMRef.setValue(seekbarRpmConvert);
             }
         });
-
-        DatabaseReference ambientTempRef = dbRef.child("ambientTemp");
 
         ambientTempRef.addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 int value = dataSnapshot.getValue(int.class);
-                 Log.d("ambientTemp","ambientTemp: " + value);
-                 PieChartView pieChartView = findViewById(R.id.ambientTempView);
-                 pieChartView.setPieChartData(BuildAmbientTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
+                 long value = (long)dataSnapshot.getValue();
+                 Log.d("ambientTemp","" + value);
+                 ambientTempView.setPieChartData(BuildAmbientTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
              }
 
              @Override
@@ -139,15 +137,12 @@ public class MainActivity extends AppCompatActivity {
              }
          });
 
-        DatabaseReference fanRPMRef = dbRef.child("fanRPM");
-
         fanRPMRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int value = dataSnapshot.getValue(int.class);
+                long value = (long)dataSnapshot.getValue();
                 Log.d("fanRPMRef","fanRPMRef: " + value);
-                PieChartView pieChartView = findViewById(R.id.fanRPMView);
-                pieChartView.setPieChartData(BuildFanRPMPieChartData(value, getColorFromResource(R.color.lightYellow)));
+                fanRPMView.setPieChartData(BuildFanRPMPieChartData(value, getColorFromResource(R.color.lightYellow)));
             }
 
             @Override
@@ -156,15 +151,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference insideHUMRef = dbRef.child("insideHum");
-
         insideHUMRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int value = dataSnapshot.getValue(int.class);
+                long value = (long)dataSnapshot.getValue();
                 Log.d("insideHUMRef","insideHUMRef: " + value);
-                PieChartView pieChartView = findViewById(R.id.InsideHumView);
-                pieChartView.setPieChartData(BuildInsideHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
+                insideHUMView.setPieChartData(BuildInsideHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
 
             @Override
@@ -173,15 +165,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference insideTempRef = dbRef.child("insideTemp");
-
         insideTempRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int value = dataSnapshot.getValue(int.class);
+                long value = (long)dataSnapshot.getValue();
                 Log.d("insideTempRef","insideTempRef: " + value);
-                PieChartView pieChartView = findViewById(R.id.InsideTempView);
-                pieChartView.setPieChartData(BuildInsideTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
+                insideTempView.setPieChartData(BuildInsideTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
             }
 
             @Override
@@ -190,15 +179,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference ambientHumRef = dbRef.child("ambientHum");
-
         ambientHumRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int value = dataSnapshot.getValue(int.class);
+                long value = (long)dataSnapshot.getValue();
                 Log.d("ambientHumRef","ambientHumRef: " + value);
-                PieChartView pieChartView = findViewById(R.id.ambientHumView);
-                pieChartView.setPieChartData(BuildAmbientHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
+                ambientHumView.setPieChartData(BuildAmbientHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
 
             @Override
