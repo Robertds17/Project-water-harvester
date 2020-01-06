@@ -3,6 +3,7 @@ package com.example.water_harvester;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,10 +40,18 @@ import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideTempPi
 
 public class MainActivity extends AppCompatActivity {
 
+    private static FragmentManager fragmentManager;
+
+    public static FragmentManager getCFragmentManager() {
+        return fragmentManager;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragmentManager = getSupportFragmentManager();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentFirebaseData()).commit();
 
