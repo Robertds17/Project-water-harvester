@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentFirebaseData()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
 
         // test stuff here
 
