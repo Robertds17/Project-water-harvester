@@ -31,15 +31,25 @@ import static com.example.water_harvester.Classes.GraphBuilder.BuildAmbientTempP
 import static com.example.water_harvester.Classes.GraphBuilder.BuildFanRPMPieChartData;
 import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideHumPieChartData;
 import static com.example.water_harvester.Classes.GraphBuilder.BuildInsideTempPieChartData;
+import static com.example.water_harvester.MainActivity.getCFragmentManager;
 
 public class FragmentFirebaseData extends Fragment {
 
     private View view;
+    private Button backButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_firebase_data, container, false);
+
+        backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+            }
+        });
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -53,9 +63,7 @@ public class FragmentFirebaseData extends Fragment {
 
         final TextView seekbarRPMView = view.findViewById(R.id.rpmspeed);
         final Switch onOffSwitchView = view.findViewById(R.id.switch1);
-        final Button fanChangeView = view.findViewById(R.id.fanChange);
         final SeekBar seekbarView = view.findViewById(R.id.seekBar);
-        final EditText editFanRPMView = view.findViewById(R.id.editRPM);
         final PieChartView ambientTempView = view.findViewById(R.id.ambientTempView);
         final PieChartView fanRPMView = view.findViewById(R.id.fanRPMView);
         final PieChartView insideHUMView = view.findViewById(R.id.InsideHumView);
@@ -83,19 +91,6 @@ public class FragmentFirebaseData extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.v("Switch State", "" + isChecked);
                 onOffRef.setValue(isChecked);
-            }
-        });
-
-        fanChangeView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int fanRpmConvert;
-                try{
-                    fanRpmConvert =  Integer.parseInt(editFanRPMView.getText().toString());
-                } catch (NumberFormatException ex){
-                    fanRpmConvert = 0;
-                }
-                Log.v("changeRPM", "" + fanRpmConvert);
-                fanRPMRef.setValue(fanRpmConvert);
             }
         });
 
