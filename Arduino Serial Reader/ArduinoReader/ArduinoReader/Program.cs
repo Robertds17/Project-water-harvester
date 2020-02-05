@@ -31,7 +31,7 @@ namespace ArduinoReader {
 
             // Create a row which contains the names of the variables we want to log.
             List<string[]> headerRow = new List<string[]>() {
-              new string[] { "Time", "Temperature 1", "Humidity 1", "Temperature 2", "Humidity 2", "Temperature 3", "Humidity 3", "Probe" }
+              new string[] { "Time", "Temperature 1", "Humidity 1", "Temperature 2", "Humidity 2", "Probe" }
             };
 
             // Calculate the headerrange so the headerRow array can be loaded in.
@@ -131,8 +131,6 @@ namespace ArduinoReader {
             _worksheet.Cells["D" + _counter].Value = double.Parse(values[2] == "nan" ? "-99" : values[2]);
             _worksheet.Cells["E" + _counter].Value = double.Parse(values[3] == "nan" ? "-99" : values[3]);
             _worksheet.Cells["F" + _counter].Value = double.Parse(values[4] == "nan" ? "-99" : values[4]);
-            _worksheet.Cells["G" + _counter].Value = double.Parse(values[5] == "nan" ? "-99" : values[5]);
-            _worksheet.Cells["H" + _counter].Value = double.Parse(values[6] == "nan" ? "-99" : values[6]);
             
             _counter++;
         }
