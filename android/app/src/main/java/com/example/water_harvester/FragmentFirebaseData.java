@@ -71,7 +71,7 @@ public class FragmentFirebaseData extends Fragment {
         final PieChartView ambientHumView = view.findViewById(R.id.ambientHumView);
 
 
-        dbRef.addValueEventListener(new ValueEventListener() {
+        /*dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataStructure value = dataSnapshot.getValue(DataStructure.class);
@@ -82,7 +82,7 @@ public class FragmentFirebaseData extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w("Value", "Failed to read value with error: ", databaseError.toException());
             }
-        });
+        });*/
 
 
         onOffSwitchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -90,7 +90,11 @@ public class FragmentFirebaseData extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.v("Switch State", "" + isChecked);
-                onOffRef.setValue(isChecked);
+                if(isChecked){
+                    onOffRef.setValue(1);
+                } else {
+                    onOffRef.setValue(0);
+                }
             }
         });
 
@@ -117,7 +121,7 @@ public class FragmentFirebaseData extends Fragment {
         ambientTempRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = (long)dataSnapshot.getValue();
+                long value = Math.round((double)dataSnapshot.getValue());
                 Log.d("ambientTemp","" + value);
                 ambientTempView.setPieChartData(BuildAmbientTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
             }
@@ -145,7 +149,7 @@ public class FragmentFirebaseData extends Fragment {
         insideHUMRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = (long)dataSnapshot.getValue();
+                long value = Math.round((double)dataSnapshot.getValue());
                 Log.d("insideHUMRef","insideHUMRef: " + value);
                 insideHUMView.setPieChartData(BuildInsideHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
@@ -159,7 +163,7 @@ public class FragmentFirebaseData extends Fragment {
         insideTempRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = (long)dataSnapshot.getValue();
+                long value = Math.round((double)dataSnapshot.getValue());
                 Log.d("insideTempRef","insideTempRef: " + value);
                 insideTempView.setPieChartData(BuildInsideTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
             }
@@ -173,7 +177,7 @@ public class FragmentFirebaseData extends Fragment {
         ambientHumRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = (long)dataSnapshot.getValue();
+                long value = Math.round((double)dataSnapshot.getValue());
                 Log.d("ambientHumRef","ambientHumRef: " + value);
                 ambientHumView.setPieChartData(BuildAmbientHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
