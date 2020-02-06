@@ -121,7 +121,7 @@ public class FragmentFirebaseData extends Fragment {
         ambientTempRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = Math.round((double)dataSnapshot.getValue());
+                long value = convertToLong(String.valueOf(dataSnapshot.getValue()));
                 Log.d("ambientTemp","" + value);
                 ambientTempView.setPieChartData(BuildAmbientTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
             }
@@ -135,7 +135,7 @@ public class FragmentFirebaseData extends Fragment {
         fanRPMRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = (long)dataSnapshot.getValue();
+                long value = convertToLong(String.valueOf(dataSnapshot.getValue()));
                 Log.d("fanRPMRef","fanRPMRef: " + value);
                 fanRPMView.setPieChartData(BuildFanRPMPieChartData(value, getColorFromResource(R.color.lightYellow)));
             }
@@ -149,7 +149,7 @@ public class FragmentFirebaseData extends Fragment {
         insideHUMRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = Math.round((double)dataSnapshot.getValue());
+                long value = convertToLong(String.valueOf(dataSnapshot.getValue()));
                 Log.d("insideHUMRef","insideHUMRef: " + value);
                 insideHUMView.setPieChartData(BuildInsideHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
@@ -163,7 +163,7 @@ public class FragmentFirebaseData extends Fragment {
         insideTempRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = Math.round((double)dataSnapshot.getValue());
+                long value = convertToLong(String.valueOf(dataSnapshot.getValue()));
                 Log.d("insideTempRef","insideTempRef: " + value);
                 insideTempView.setPieChartData(BuildInsideTempPieChartData(value, getColorFromResource(R.color.lightOrange)));
             }
@@ -177,7 +177,7 @@ public class FragmentFirebaseData extends Fragment {
         ambientHumRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long value = Math.round((double)dataSnapshot.getValue());
+                long value = convertToLong(String.valueOf(dataSnapshot.getValue()));
                 Log.d("ambientHumRef","ambientHumRef: " + value);
                 ambientHumView.setPieChartData(BuildAmbientHumPieChartData(value, getColorFromResource(R.color.lightBlue)));
             }
@@ -194,6 +194,13 @@ public class FragmentFirebaseData extends Fragment {
 
     private int getColorFromResource(int id){
         return ResourcesCompat.getColor(getResources(), id, null);
+    }
+
+    private static Long convertToLong(Object o){
+        String stringToConvert = String.valueOf(o);
+        double doubleValue = Double.parseDouble(stringToConvert);
+        return Math.round(doubleValue);
+
     }
 
 }
